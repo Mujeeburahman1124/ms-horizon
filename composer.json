@@ -1,0 +1,14 @@
+{
+    "name": "mshorizon/group-platform",
+    "description": "MS Horizon Group Master Enterprise Website",
+    "type": "project",
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "require": {
+        "php": ">=8.2"
+    }
+}

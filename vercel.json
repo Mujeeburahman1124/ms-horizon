@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "functions": {
+    "api/index.php": {
+      "runtime": "vercel-php@0.6.0"
+    }
+  },
+  "routes": [
+    {
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/public/(.*)",
+      "dest": "/public/$1"
+    },
+    {
+      "src": "/install.php",
+      "dest": "/install.php"
+    },
+    {
+      "src": "/db_admin.php",
+      "dest": "/db_admin.php"
+    },
+    {
+      "src": "/preview.html",
+      "dest": "/preview.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/index.php"
+    }
+  ]
+}

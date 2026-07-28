@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+    Options -Indexes
+    RewriteEngine On
+
+    # Allow direct access to standalone files in root (install.php, test_db.php, db_admin.php, preview.html)
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+
+    # Route everything else (including root /) to public/index.php
+    RewriteRule ^(.*)$ public/index.php [QSA,L]
+</IfModule>
