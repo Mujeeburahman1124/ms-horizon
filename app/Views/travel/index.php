@@ -23,16 +23,16 @@
         
         <div class="d-flex flex-column gap-3 mb-4">
           <div class="d-flex align-items-center gap-3">
-            <div style="width:40px;height:40px;border-radius:50%;background:rgba(212,175,55,.15);display:flex;align-items:center;justify-content:center;color:var(--clr-gold);"><i class="fas fa-bolt"></i></div>
-            <div><strong>Express Processing:</strong> UAE Visas issued in 24-48 hours.</div>
+            <div style="width:42px;height:42px;border-radius:50%;background:rgba(212,175,55,.15);display:flex;align-items:center;justify-content:center;color:var(--clr-gold);font-size:1.1rem;"><i class="fas fa-bolt"></i></div>
+            <div><strong>Express Processing:</strong> UAE Visas issued in 24 - 48 hours.</div>
           </div>
           <div class="d-flex align-items-center gap-3">
-            <div style="width:40px;height:40px;border-radius:50%;background:rgba(0,184,148,.15);display:flex;align-items:center;justify-content:center;color:var(--clr-emerald);"><i class="fas fa-file-check"></i></div>
+            <div style="width:42px;height:42px;border-radius:50%;background:rgba(0,184,148,.15);display:flex;align-items:center;justify-content:center;color:var(--clr-emerald);font-size:1.1rem;"><i class="fas fa-file-check"></i></div>
             <div><strong>98% Approval Rate:</strong> Thorough document verification before filing.</div>
           </div>
           <div class="d-flex align-items-center gap-3">
-            <div style="width:40px;height:40px;border-radius:50%;background:rgba(41,128,185,.15);display:flex;align-items:center;justify-content:center;color:var(--clr-blue-acc);"><i class="fas fa-lock"></i></div>
-            <div><strong>Secure Uploads:</strong> Passport & document protection guarantee.</div>
+            <div style="width:42px;height:42px;border-radius:50%;background:rgba(41,128,185,.15);display:flex;align-items:center;justify-content:center;color:var(--clr-blue-acc);font-size:1.1rem;"><i class="fas fa-lock"></i></div>
+            <div><strong>Secure Uploads:</strong> Passport & document privacy guarantee.</div>
           </div>
         </div>
 
@@ -53,7 +53,7 @@
               <select id="app_visa" name="visa_id" required>
                 <option value="" disabled selected>Choose a visa...</option>
                 <?php foreach (($featured_visas ?? []) as $v): ?>
-                <option value="<?= $v['id'] ?>"><?= htmlspecialchars($v['country_name'] . ' — ' . $v['title'] . ' (AED ' . number_format($v['price'], 0) . ')', ENT_QUOTES, 'UTF-8') ?></option>
+                <option value="<?= (int)($v['id'] ?? 1) ?>"><?= htmlspecialchars((string)($v['country_name'] ?? 'UAE') . ' — ' . (string)($v['title'] ?? 'Visa') . ' (AED ' . number_format((float)($v['price'] ?? 350), 0) . ')', ENT_QUOTES, 'UTF-8') ?></option>
                 <?php endforeach; ?>
               </select>
             </div>
@@ -106,30 +106,40 @@
 <!-- ─── FEATURED VISAS ─────────────────────────────────────────── -->
 <section class="section style-smoke" style="background:var(--clr-smoke,#F1F5F9);">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header text-center mb-5">
       <span class="section-eyebrow">Popular Packages</span>
       <h2 class="section-title">Featured <span class="highlight">Visa Packages</span></h2>
+      <p class="section-subtitle">Select a visa package to review eligibility criteria, processing times, and submit your application online.</p>
     </div>
 
-    <div class="row g-4">
-      <?php foreach (($featured_visas ?? []) as $visa): ?>
-      <div class="col-md-6 col-lg-3">
-        <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
-          <div class="p-4" style="background:var(--clr-navy);color:white;">
-            <span class="badge bg-warning text-dark mb-2"><?= htmlspecialchars($visa['visa_type'], ENT_QUOTES, 'UTF-8') ?></span>
-            <h4 class="h5 font-weight-bold mb-1"><?= htmlspecialchars($visa['title'], ENT_QUOTES, 'UTF-8') ?></h4>
-            <div class="text-muted small"><?= htmlspecialchars($visa['country_name'], ENT_QUOTES, 'UTF-8') ?></div>
+    <div class="row g-4 justify-content-center">
+      <?php foreach (($featured_visas ?? []) as $visa): 
+        $vType = !empty($visa['visa_type']) ? (string)$visa['visa_type'] : 'Tourist';
+        $vTitle = !empty($visa['title']) ? (string)$visa['title'] : 'Visa Package';
+        $vCountry = !empty($visa['country_name']) ? (string)$visa['country_name'] : 'UAE';
+        $vTime = !empty($visa['processing_time']) ? (string)$visa['processing_time'] : '24-48 Hours';
+        $vPrice = (float)($visa['price'] ?? 350);
+        $vSlug = !empty($visa['slug']) ? (string)$visa['slug'] : 'uae-30-day-tourist-visa';
+      ?>
+      <div class="col-sm-6 col-lg-4 col-xl-3">
+        <div class="card h-100 border-0 shadow-md rounded-4 overflow-hidden" style="background:white;transition:transform .25s ease, box-shadow .25s ease;">
+          <div class="p-4" style="background:linear-gradient(135deg, #0A1628 0%, #1A3558 100%);color:white;">
+            <span class="badge bg-warning text-dark font-weight-bold mb-2 px-2.5 py-1" style="font-size:.75rem;border-radius:6px;"><?= htmlspecialchars($vType, ENT_QUOTES, 'UTF-8') ?></span>
+            <h4 class="h5 font-weight-bold mb-1 text-white" style="line-height:1.3;"><?= htmlspecialchars($vTitle, ENT_QUOTES, 'UTF-8') ?></h4>
+            <div style="color:rgba(255,255,255,.65);font-size:.82rem;"><?= htmlspecialchars($vCountry, ENT_QUOTES, 'UTF-8') ?></div>
           </div>
-          <div class="card-body p-4">
-            <div class="h3 font-weight-bold text-warning mb-3">
-              AED <?= number_format($visa['price'], 0) ?>
+          <div class="card-body p-4 d-flex flex-column justify-content-between">
+            <div>
+              <div class="h3 font-weight-bold mb-3" style="color:#B8860B;">
+                AED <?= number_format($vPrice, 0) ?>
+              </div>
+              <ul class="list-unstyled small text-muted mb-4" style="line-height:1.8;">
+                <li class="mb-2"><i class="fas fa-clock text-primary me-2"></i> Processing: <strong><?= htmlspecialchars($vTime, ENT_QUOTES, 'UTF-8') ?></strong></li>
+                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Document Verification Included</li>
+                <li class="mb-2"><i class="fas fa-headset text-info me-2"></i> Dedicated Case Manager</li>
+              </ul>
             </div>
-            <ul class="list-unstyled small text-muted mb-4">
-              <li class="mb-2"><i class="fas fa-clock text-primary me-2"></i> Processing: <strong><?= htmlspecialchars($visa['processing_time'], ENT_QUOTES, 'UTF-8') ?></strong></li>
-              <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Document Verification Included</li>
-              <li class="mb-2"><i class="fas fa-headset text-info me-2"></i> Dedicated Case Manager</li>
-            </ul>
-            <a href="<?= APP_URL ?>/travel/visa/<?= $visa['slug'] ?>" class="btn btn-outline-primary btn-sm w-100 rounded-pill">
+            <a href="<?= APP_URL ?>/travel/visa/<?= urlencode($vSlug) ?>" class="btn btn-outline-primary btn-sm w-100 rounded-pill justify-content-center font-weight-bold">
               View Details & Apply
             </a>
           </div>
