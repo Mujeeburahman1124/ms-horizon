@@ -134,20 +134,6 @@
 <!-- MS Horizon Main JS -->
 <script src="<?= APP_URL ?>/assets/js/main.js"></script>
 
-<!-- Hamburger init -->
-<script>
-(function() {
-  var btn = document.getElementById('hamburgerBtn');
-  var nav = document.getElementById('navLinks');
-  if (btn && nav) {
-    btn.addEventListener('click', function() {
-      var open = nav.classList.toggle('mobile-open');
-      btn.setAttribute('aria-expanded', open);
-    });
-  }
-})();
-</script>
-
 <?php if (isset($extra_scripts)) echo $extra_scripts; ?>
 </body>
 </html>
