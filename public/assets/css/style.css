@@ -990,3 +990,59 @@ ul { list-style: none; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .stat-number { font-size: 2rem; }
 }
+
+/* ─── Ultra Clean Professional Navbar Controls ─── */
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.nav-ctrl-btn {
+  height: 38px;
+  padding: 0 0.875rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  font-size: 0.825rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  outline: none !important;
+  box-shadow: none !important;
+  text-decoration: none;
+}
+.nav-ctrl-btn:hover, .nav-ctrl-btn:focus {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: rgba(212, 175, 55, 0.5);
+  color: #D4AF37;
+}
+
+.btn-portal-pill {
+  height: 38px;
+  padding: 0 1.25rem;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #D4AF37 0%, #AA7C11 100%);
+  color: #0A1628 !important;
+  font-weight: 700;
+  font-size: 0.825rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  border: none;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+  transition: all 0.2s ease;
+  text-decoration: none !important;
+}
+.btn-portal-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+  color: #0A1628 !important;
+}
+

@@ -21,7 +21,7 @@ $currentUri = \App\Core\Request::getUri();
     var el = document.getElementById('page-loader');
     if (el) {
       el.classList.add('loaded');
-      setTimeout(function(){ el.style.display = 'none'; }, 400);
+      setTimeout(function(){ el.style.display = 'none'; }, 300);
     }
   }
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
@@ -29,7 +29,7 @@ $currentUri = \App\Core\Request::getUri();
   } else {
     window.addEventListener('DOMContentLoaded', function(){ setTimeout(dismissLoader, 200); });
   }
-  setTimeout(dismissLoader, 600);
+  setTimeout(dismissLoader, 500);
 })();
 </script>
 
@@ -102,42 +102,44 @@ $currentUri = \App\Core\Request::getUri();
       </li>
     </ul>
 
-    <!-- Right Controls -->
-    <div class="nav-controls">
-      <!-- Language Selector -->
-      <div class="dropdown d-inline-block">
-        <button class="nav-ctrl-btn dropdown-toggle" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Change Language">
-          <i class="fas fa-language"></i> <span class="d-none d-md-inline ms-1">EN</span>
+    <!-- Clean Ultra-Professional Right Controls -->
+    <div class="nav-controls" style="display:flex;align-items:center;gap:.6rem;">
+
+      <!-- Language Switcher Dropdown -->
+      <div class="dropdown">
+        <button class="nav-ctrl-btn dropdown-toggle" type="button" id="langSelectBtn" data-bs-toggle="dropdown" aria-expanded="false" title="Select Language">
+          <i class="fas fa-globe me-1"></i> <span style="font-weight:700;">EN</span>
         </button>
-        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="langDropdown" style="background:var(--clr-navy-light);border:1px solid rgba(255,255,255,.1);">
-          <li><a class="dropdown-item text-white" href="?lang=en"><span class="me-2">🇦🇪</span> English (EN)</a></li>
-          <li><a class="dropdown-item text-white" href="?lang=ar"><span class="me-2">🇦🇪</span> العربية (AR)</a></li>
-          <li><a class="dropdown-item text-white" href="?lang=ta"><span class="me-2">🇮🇳</span> தமிழ் (TA)</a></li>
+        <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="langSelectBtn" style="background:#0F172A;border:1px solid rgba(212,175,55,.3);border-radius:12px;padding:.5rem;">
+          <li><a class="dropdown-item text-white rounded-2 py-2" href="?lang=en"><span class="me-2">🇦🇪</span> English (EN)</a></li>
+          <li><a class="dropdown-item text-white rounded-2 py-2" href="?lang=ar"><span class="me-2">🇦🇪</span> العربية (AR)</a></li>
+          <li><a class="dropdown-item text-white rounded-2 py-2" href="?lang=ta"><span class="me-2">🇮🇳</span> தமிழ் (TA)</a></li>
         </ul>
       </div>
 
-      <!-- Theme Toggle -->
-      <button class="nav-ctrl-btn btn-theme-toggle" aria-label="Toggle dark/light theme" title="Toggle Theme">
+      <!-- Theme Toggle Button -->
+      <button class="nav-ctrl-btn btn-theme-toggle" aria-label="Toggle Theme" title="Toggle Dark/Light Mode" style="width:38px;padding:0;">
         <i class="fas fa-moon"></i>
       </button>
 
-      <!-- User Account / Login Button -->
+      <!-- Account Portal Pill Button -->
       <?php if (!empty($current_user)): ?>
-        <a href="<?= APP_URL ?>/admin/dashboard" class="btn btn-gold btn-sm d-none d-sm-inline-flex" style="border-radius:20px;padding:.4rem 1rem;">
-          <i class="fas fa-user-circle me-1"></i> Dashboard
+        <a href="<?= APP_URL ?>/admin/dashboard" class="btn-portal-pill d-none d-sm-inline-flex">
+          <i class="fas fa-chart-line"></i> Dashboard
         </a>
       <?php else: ?>
-        <a href="<?= APP_URL ?>/login" class="btn btn-outline-gold btn-sm d-none d-sm-inline-flex" style="border-radius:20px;padding:.4rem 1rem;">
-          <i class="fas fa-lock me-1"></i> Portal Login
+        <a href="<?= APP_URL ?>/login" class="btn-portal-pill d-none d-sm-inline-flex">
+          <i class="fas fa-lock"></i> Portal Login
         </a>
       <?php endif; ?>
 
-      <!-- Mobile Hamburger -->
-      <button class="nav-hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+      <!-- Mobile Menu Hamburger -->
+      <button class="nav-hamburger ms-1" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
       </button>
+
     </div>
 
   </div>
