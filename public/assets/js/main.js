@@ -1,6 +1,6 @@
 /**
  * MS HORIZON GROUP — Main JavaScript Module
- * Sticky navbar, mega menu, dark mode, counters, scroll animations
+ * Sticky navbar, mega menu, dark mode, counters, scroll animations, SweetAlert2 notifications
  */
 (function () {
   'use strict';
@@ -135,8 +135,31 @@
     });
   });
 
-  // ─── Toast Notification System ────────────────────────────────
+  // ─── SweetAlert2 Toast Notification System ────────────────────
   window.showToast = function (message, type = 'success', duration = 5000) {
+    if (typeof Swal !== 'undefined') {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: duration,
+        timerProgressBar: true,
+        background: '#0F172A',
+        color: '#FFFFFF',
+        customClass: { popup: 'animated fadeInDown' },
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer);
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+      });
+      Toast.fire({
+        icon: type,
+        title: message
+      });
+      return;
+    }
+
+    // DOM Fallback
     let container = document.querySelector('.toast-container');
     if (!container) {
       container = document.createElement('div');

@@ -1,6 +1,6 @@
 /**
  * MS HORIZON GROUP — Main JavaScript Module
- * Sticky navbar, mega menu, dark mode, counters, scroll animations
+ * Sticky navbar, mega menu, dark mode, counters, scroll animations, SweetAlert2 notifications
  */
 (function () {
   'use strict';
@@ -63,7 +63,7 @@
 
     // Close on outside click
     document.addEventListener('click', (e) => {
-      if (!navbar.contains(e.target)) {
+      if (navbar && !navbar.contains(e.target)) {
         navLinks.classList.remove('mobile-open');
         document.body.style.overflow = '';
       }
@@ -135,8 +135,31 @@
     });
   });
 
-  // ─── Toast Notification System ────────────────────────────────
+  // ─── SweetAlert2 Toast Notification System ────────────────────
   window.showToast = function (message, type = 'success', duration = 5000) {
+    if (typeof Swal !== 'undefined') {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: duration,
+        timerProgressBar: true,
+        background: '#0F172A',
+        color: '#FFFFFF',
+        customClass: { popup: 'animated fadeInDown' },
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer);
+          toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+      });
+      Toast.fire({
+        icon: type,
+        title: message
+      });
+      return;
+    }
+
+    // DOM Fallback
     let container = document.querySelector('.toast-container');
     if (!container) {
       container = document.createElement('div');
@@ -192,18 +215,20 @@
 
         if (data.status === 'success') {
           showToast(data.message, 'success');
-          if (data.redirect) setTimeout(() => (window.location.href = data.redirect), 1200);
-          if (!data.redirect) form.reset();
+          if (data.redirect) {
+            window.location.href = data.redirect;
+            return;
+          }
+          form.reset();
         } else {
           showToast(data.message || 'Please correct the highlighted fields.', 'error');
-          // Field-level errors
           if (data.errors) {
             Object.entries(data.errors).forEach(([field, errs]) => {
               const input = form.querySelector(`[name="${field}"]`);
               if (input) {
                 input.classList.add('is-invalid');
                 const errorEl = document.createElement('div');
-                errorEl.className = 'form-error';
+                errorEl.className = 'form-error text-danger small mt-1';
                 errorEl.textContent = Array.isArray(errs) ? errs[0] : errs;
                 input.parentNode.appendChild(errorEl);
               }
@@ -211,64 +236,14 @@
           }
         }
       } catch (err) {
-        showToast('A network error occurred. Please try again.', 'error');
-        console.error(err);
+        showToast('An unexpected network error occurred. Please try again.', 'error');
       } finally {
-        if (btn) {
+        if (btn && !form.dataset.redirecting) {
           btn.disabled = false;
           btn.innerHTML = originalText;
         }
       }
     });
   });
-
-  // ─── Offers Filter ────────────────────────────────────────────
-  const offerFilters = document.querySelectorAll('.filter-btn[data-division]');
-  offerFilters.forEach(btn => {
-    btn.addEventListener('click', () => {
-      offerFilters.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const division = btn.dataset.division;
-      document.querySelectorAll('.offer-card').forEach(card => {
-        card.style.display = (!division || card.dataset.division === division) ? '' : 'none';
-      });
-    });
-  });
-
-  // ─── Portfolio Category Filter ────────────────────────────────
-  const portfolioFilters = document.querySelectorAll('.filter-btn[data-category]');
-  portfolioFilters.forEach(btn => {
-    btn.addEventListener('click', () => {
-      portfolioFilters.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const cat = btn.dataset.category;
-      document.querySelectorAll('.portfolio-card').forEach(card => {
-        card.style.display = (!cat || card.dataset.category === cat) ? '' : 'none';
-      });
-    });
-  });
-
-  // ─── Smooth Anchor Scroll ─────────────────────────────────────
-  document.querySelectorAll('a[href^="#"]').forEach(link => {
-    link.addEventListener('click', (e) => {
-      const target = document.querySelector(link.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        const offset = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--navbar-h')) || 80;
-        const top = target.getBoundingClientRect().top + window.scrollY - offset - 20;
-        window.scrollTo({ top, behavior: 'smooth' });
-      }
-    });
-  });
-
-  // ─── Cookie Banner ────────────────────────────────────────────
-  const cookieBanner = document.getElementById('cookie-banner');
-  if (cookieBanner && !localStorage.getItem('msh-cookie-accepted')) {
-    cookieBanner.style.display = 'flex';
-    cookieBanner.querySelector('.cookie-accept')?.addEventListener('click', () => {
-      localStorage.setItem('msh-cookie-accepted', '1');
-      cookieBanner.style.display = 'none';
-    });
-  }
 
 })();
