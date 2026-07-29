@@ -1,4 +1,5 @@
 {
+    "$schema": "https://getcomposer.org/schema.json",
     "name": "mshorizon/group-platform",
     "description": "MS Horizon Group Master Enterprise Website",
     "type": "project",
