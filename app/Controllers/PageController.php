@@ -28,7 +28,15 @@ class PageController extends Controller
 
     public function services(): void
     {
-        $divisions = Database::fetchAll("SELECT * FROM divisions ORDER BY id ASC");
+        try {
+            $divisions = Database::fetchAll("SELECT * FROM divisions ORDER BY id ASC");
+            if (empty($divisions)) {
+                $divisions = $this->getFallbackDivisions();
+            }
+        } catch (\Exception $e) {
+            $divisions = $this->getFallbackDivisions();
+        }
+
         $this->render('pages/services', [
             'page_title' => 'Our Services — MS Horizon Group',
             'page_description' => 'Explore MS Horizon Group\'s five integrated service divisions: Reservations, Travel & Tourism, HR Consultancy, Business Setup, and Software Development.',
@@ -50,15 +58,19 @@ class PageController extends Controller
         $results = [];
         if (!empty($q)) {
             $like = '%' . $q . '%';
-            $jobs = Database::fetchAll(
-                "SELECT 'job' as type, title, slug FROM jobs WHERE title LIKE :q AND is_active = 1 LIMIT 5",
-                ['q' => $like]
-            );
-            $blogs = Database::fetchAll(
-                "SELECT 'blog' as type, title, slug FROM blogs WHERE title LIKE :q AND is_published = 1 LIMIT 5",
-                ['q' => $like]
-            );
-            $results = array_merge($jobs, $blogs);
+            try {
+                $jobs = Database::fetchAll(
+                    "SELECT 'job' as type, title, slug FROM jobs WHERE title LIKE :q AND is_active = 1 LIMIT 5",
+                    ['q' => $like]
+                );
+                $blogs = Database::fetchAll(
+                    "SELECT 'blog' as type, title, slug FROM blogs WHERE title LIKE :q AND is_published = 1 LIMIT 5",
+                    ['q' => $like]
+                );
+                $results = array_merge($jobs, $blogs);
+            } catch (\Exception $e) {
+                $results = [];
+            }
         }
 
         $this->render('pages/search', [
@@ -97,5 +109,51 @@ class PageController extends Controller
     {
         http_response_code(404);
         $this->render('pages/404', ['page_title' => '404 Page Not Found — MS Horizon Group']);
+    }
+
+    private function getFallbackDivisions(): array
+    {
+        return [
+            [
+                'id' => 1,
+                'title' => 'Reservations Services',
+                'slug' => 'reservations-services',
+                'description' => 'Worldwide flight bookings, luxury 5-star hotel reservations, corporate itinerary management, and airport luxury transfers.',
+                'icon' => 'fa-plane-departure',
+                'url' => '/reservations'
+            ],
+            [
+                'id' => 2,
+                'title' => 'Travel & Tourism',
+                'slug' => 'travel-tourism',
+                'description' => 'Comprehensive UAE 30/60-day tourist visas, GCC entry visas, UK, Schengen, USA, Canada visa assistance, and holiday packages.',
+                'icon' => 'fa-passport',
+                'url' => '/travel'
+            ],
+            [
+                'id' => 3,
+                'title' => 'Human Resource Consultancy',
+                'slug' => 'hr-consultancy',
+                'description' => 'Executive talent headhunting, international candidate recruitment across India, GCC, and Southeast Asia, pre-employment screening.',
+                'icon' => 'fa-users-gear',
+                'url' => '/careers'
+            ],
+            [
+                'id' => 4,
+                'title' => 'Business Consultancy & Setup',
+                'slug' => 'business-consultancy',
+                'description' => 'End-to-end UAE Mainland & Freezone company incorporation, trade license issuance, corporate banking setup, and PRO services.',
+                'icon' => 'fa-building-columns',
+                'url' => '/business'
+            ],
+            [
+                'id' => 5,
+                'title' => 'Software Development & IT Solutions',
+                'slug' => 'software-development',
+                'description' => 'Enterprise Web application development, mobile iOS/Android apps, AI workflow automation, custom CRM/ERP architecture.',
+                'icon' => 'fa-laptop-code',
+                'url' => '/software'
+            ]
+        ];
     }
 }
