@@ -5,13 +5,22 @@
 (function () {
   'use strict';
 
-  // ─── Page Loader ──────────────────────────────────────────────
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      const loader = document.getElementById('page-loader');
-      if (loader) loader.classList.add('loaded');
-    }, 1200);
-  });
+  // ─── Page Loader (Guaranteed Instant Dismissal) ───────────────
+  function hideLoader() {
+    const loader = document.getElementById('page-loader');
+    if (loader && !loader.classList.contains('loaded')) {
+      loader.classList.add('loaded');
+    }
+  }
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(hideLoader, 300);
+  } else {
+    window.addEventListener('DOMContentLoaded', () => setTimeout(hideLoader, 300));
+    window.addEventListener('load', () => setTimeout(hideLoader, 300));
+  }
+  // Ultimate safety fallback
+  setTimeout(hideLoader, 800);
 
   // ─── Theme Toggle (Dark / Light) ──────────────────────────────
   const savedTheme = localStorage.getItem('msh-theme') || 'light';
