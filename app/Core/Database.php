@@ -3,15 +3,16 @@ namespace App\Core;
 
 use PDO;
 use PDOException;
+use Throwable;
 
 /**
- * Enterprise PDO Database Singleton Layer with Prepared Statements
+ * Enterprise PDO Database Singleton Layer with Prepared Statements & Exception Resiliency
  */
 class Database
 {
     private static ?PDO $instance = null;
 
-    public static function getInstance(): PDO
+    public static function getInstance(): ?PDO
     {
         if (self::$instance === null) {
             try {
@@ -26,88 +27,132 @@ class Database
                 $options = [
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                    PDO::ATTR_EMULATE_PREPARES => false,
+                    PDO::ATTR_EMULATE_PREPARES => true,
                     PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES " . DB_CHARSET
                 ];
 
                 self::$instance = new PDO($dsn, DB_USER, DB_PASS, $options);
-            } catch (PDOException $e) {
-                if (APP_ENV === 'development') {
-                    die("Database Connection Error: " . $e->getMessage());
-                } else {
-                    error_log("Database Connection Error: " . $e->getMessage());
-                    die("A system error occurred. Please try again later.");
-                }
+            } catch (Throwable $e) {
+                error_log("Database Connection Warning: " . $e->getMessage());
+                return null;
             }
         }
 
         return self::$instance;
     }
 
-    public static function query(string $sql, array $params = []): \PDOStatement
+    public static function query(string $sql, array $params = []): ?\PDOStatement
     {
-        $stmt = self::getInstance()->prepare($sql);
-        $stmt->execute($params);
-        return $stmt;
+        try {
+            $pdo = self::getInstance();
+            if (!$pdo) return null;
+            $stmt = $pdo->prepare($sql);
+            if (!$stmt) return null;
+            $stmt->execute($params);
+            return $stmt;
+        } catch (Throwable $e) {
+            error_log("Database Query Error: [" . $sql . "] — " . $e->getMessage());
+            return null;
+        }
     }
 
     public static function fetchAll(string $sql, array $params = []): array
     {
-        return self::query($sql, $params)->fetchAll();
+        try {
+            $stmt = self::query($sql, $params);
+            if (!$stmt) return [];
+            return $stmt->fetchAll() ?: [];
+        } catch (Throwable $e) {
+            error_log("Database fetchAll Error: " . $e->getMessage());
+            return [];
+        }
     }
 
     public static function fetchOne(string $sql, array $params = []): ?array
     {
-        $result = self::query($sql, $params)->fetch();
-        return $result ?: null;
+        try {
+            $stmt = self::query($sql, $params);
+            if (!$stmt) return null;
+            $result = $stmt->fetch();
+            return $result ?: null;
+        } catch (Throwable $e) {
+            error_log("Database fetchOne Error: " . $e->getMessage());
+            return null;
+        }
     }
 
     public static function insert(string $table, array $data): int
     {
-        $keys = array_keys($data);
-        $fields = implode(', ', array_map(fn($k) => "`$k`", $keys));
-        $placeholders = implode(', ', array_map(fn($k) => ":$k", $keys));
+        try {
+            $keys = array_keys($data);
+            $fields = implode(', ', array_map(fn($k) => "`$k`", $keys));
+            $placeholders = implode(', ', array_map(fn($k) => ":$k", $keys));
 
-        $sql = "INSERT INTO `$table` ($fields) VALUES ($placeholders)";
-        self::query($sql, $data);
+            $sql = "INSERT INTO `$table` ($fields) VALUES ($placeholders)";
+            $stmt = self::query($sql, $data);
+            if (!$stmt) return 0;
 
-        return (int) self::getInstance()->lastInsertId();
+            $pdo = self::getInstance();
+            return $pdo ? (int) $pdo->lastInsertId() : 0;
+        } catch (Throwable $e) {
+            error_log("Database Insert Error: " . $e->getMessage());
+            return 0;
+        }
     }
 
     public static function update(string $table, array $data, string $where, array $whereParams = []): int
     {
-        $fields = implode(', ', array_map(fn($k) => "`$k` = :val_$k", array_keys($data)));
-        $sql = "UPDATE `$table` SET $fields WHERE $where";
+        try {
+            $fields = implode(', ', array_map(fn($k) => "`$k` = :val_$k", array_keys($data)));
+            $sql = "UPDATE `$table` SET $fields WHERE $where";
 
-        $params = [];
-        foreach ($data as $key => $val) {
-            $params["val_$key"] = $val;
+            $params = [];
+            foreach ($data as $key => $val) {
+                $params["val_$key"] = $val;
+            }
+            $params = array_merge($params, $whereParams);
+
+            $stmt = self::query($sql, $params);
+            return $stmt ? $stmt->rowCount() : 0;
+        } catch (Throwable $e) {
+            error_log("Database Update Error: " . $e->getMessage());
+            return 0;
         }
-        $params = array_merge($params, $whereParams);
-
-        $stmt = self::query($sql, $params);
-        return $stmt->rowCount();
     }
 
     public static function delete(string $table, string $where, array $params = []): int
     {
-        $sql = "DELETE FROM `$table` WHERE $where";
-        $stmt = self::query($sql, $params);
-        return $stmt->rowCount();
+        try {
+            $sql = "DELETE FROM `$table` WHERE $where";
+            $stmt = self::query($sql, $params);
+            return $stmt ? $stmt->rowCount() : 0;
+        } catch (Throwable $e) {
+            error_log("Database Delete Error: " . $e->getMessage());
+            return 0;
+        }
     }
 
     public static function beginTransaction(): void
     {
-        self::getInstance()->beginTransaction();
+        try {
+            $pdo = self::getInstance();
+            if ($pdo) $pdo->beginTransaction();
+        } catch (Throwable $e) {}
     }
 
     public static function commit(): void
     {
-        self::getInstance()->commit();
+        try {
+            $pdo = self::getInstance();
+            if ($pdo && $pdo->inTransaction()) $pdo->commit();
+        } catch (Throwable $e) {}
     }
 
     public static function rollBack(): void
     {
-        self::getInstance()->rollBack();
+        try {
+            $pdo = self::getInstance();
+            if ($pdo && $pdo->inTransaction()) $pdo->rollBack();
+        } catch (Throwable $e) {}
     }
 }
