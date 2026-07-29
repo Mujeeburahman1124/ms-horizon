@@ -106,14 +106,15 @@ $currentUri = \App\Core\Request::getUri();
     <div class="nav-controls" style="display:flex;align-items:center;gap:.6rem;">
 
       <!-- Language Switcher Dropdown -->
+      <?php $currUri = strtok($_SERVER['REQUEST_URI'] ?? '/', '?'); ?>
       <div class="dropdown">
         <button class="nav-ctrl-btn dropdown-toggle" type="button" id="langSelectBtn" data-bs-toggle="dropdown" aria-expanded="false" title="Select Language">
-          <i class="fas fa-globe me-1"></i> <span style="font-weight:700;">EN</span>
+          <i class="fas fa-globe me-1"></i> <span style="font-weight:700;"><?= strtoupper(APP_LANG) ?></span>
         </button>
         <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="langSelectBtn" style="background:#0F172A;border:1px solid rgba(212,175,55,.3);border-radius:12px;padding:.5rem;">
-          <li><a class="dropdown-item text-white rounded-2 py-2" href="?lang=en"><span class="me-2">🇦🇪</span> English (EN)</a></li>
-          <li><a class="dropdown-item text-white rounded-2 py-2" href="?lang=ar"><span class="me-2">🇦🇪</span> العربية (AR)</a></li>
-          <li><a class="dropdown-item text-white rounded-2 py-2" href="?lang=ta"><span class="me-2">🇮🇳</span> தமிழ் (TA)</a></li>
+          <li><a class="dropdown-item text-white rounded-2 py-2" href="<?= $currUri ?>?lang=en"><span class="me-2">🇦🇪</span> English (EN)</a></li>
+          <li><a class="dropdown-item text-white rounded-2 py-2" href="<?= $currUri ?>?lang=ar"><span class="me-2">🇦🇪</span> العربية (AR)</a></li>
+          <li><a class="dropdown-item text-white rounded-2 py-2" href="<?= $currUri ?>?lang=ta"><span class="me-2">🇮🇳</span> தமிழ் (TA)</a></li>
         </ul>
       </div>
 

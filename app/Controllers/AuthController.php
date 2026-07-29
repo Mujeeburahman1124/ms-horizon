@@ -19,6 +19,11 @@ class AuthController extends Controller
         $this->auth = new AuthService();
     }
 
+    public function showLoginForm(): void
+    {
+        $this->loginForm();
+    }
+
     public function loginForm(): void
     {
         if ($this->auth->isAuthenticated()) {
@@ -74,9 +79,6 @@ class AuthController extends Controller
         }
     }
 
-    /**
-     * Real-time Email OTP Request Endpoint
-     */
     public function sendOtp(): void
     {
         $email = Request::get('email');
@@ -89,9 +91,6 @@ class AuthController extends Controller
         $this->json($result);
     }
 
-    /**
-     * Real-time Email OTP Verification Endpoint
-     */
     public function verifyOtp(): void
     {
         $email = Request::get('email');
@@ -110,9 +109,11 @@ class AuthController extends Controller
         }
     }
 
-    /**
-     * Forgot Password View & Form
-     */
+    public function showForgotForm(): void
+    {
+        $this->forgotPasswordForm();
+    }
+
     public function forgotPasswordForm(): void
     {
         $this->render('auth/forgot_password', [
@@ -120,9 +121,6 @@ class AuthController extends Controller
         ]);
     }
 
-    /**
-     * Password Reset Request Endpoint
-     */
     public function sendPasswordResetOtp(): void
     {
         $email = Request::get('email');
@@ -141,9 +139,6 @@ class AuthController extends Controller
         $this->json($result);
     }
 
-    /**
-     * Password Reset Execution
-     */
     public function resetPassword(): void
     {
         $email = Request::get('email');
@@ -160,7 +155,6 @@ class AuthController extends Controller
             return;
         }
 
-        // Update password hash in database
         $hash = password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 12]);
         Database::query("UPDATE users SET password_hash = :hash WHERE email = :email", [
             'hash' => $hash,

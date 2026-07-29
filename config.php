@@ -1,7 +1,53 @@
 <?php
 /**
- * MS Horizon Group - Enterprise Configuration (Dynamic APP_URL Auto-Detect + Gmail SMTP)
+ * MS Horizon Group - Enterprise Configuration (Dynamic APP_URL Auto-Detect + Gmail SMTP + Multilingual Engine)
  */
+
+// Language Session & Cookie Handler
+if (session_status() === PHP_SESSION_NONE) {
+    @session_start();
+}
+if (isset($_GET['lang'])) {
+    $lang = in_array($_GET['lang'], ['en', 'ar', 'ta']) ? $_GET['lang'] : 'en';
+    $_SESSION['app_lang'] = $lang;
+    @setcookie('app_lang', $lang, time() + 86400 * 30, '/');
+}
+define('APP_LANG', $_SESSION['app_lang'] ?? $_COOKIE['app_lang'] ?? 'en');
+
+function __t(string $text): string {
+    static $dictionary = [
+        'ar' => [
+            'Home' => 'الرئيسية',
+            'Services' => 'الخدمات',
+            'Countries' => 'الدول والـتأشيرات',
+            'Offers' => 'العروض الخاصة',
+            'Careers' => 'الوظائف والتوظيف',
+            'About Us' => 'عن المجموعة',
+            'Contact Us' => 'اتصل بنا',
+            'Portal Login' => 'تسجيل الدخول',
+            'Dashboard' => 'لوحة التحكم',
+            'One Group. Multiple Solutions.' => 'مجموعة واحدة. حلول متكاملة.',
+            'Get a Free Consultation' => 'احصل على استشارة مجانية',
+            'Explore Our Services' => 'استكشف خدماتنا',
+        ],
+        'ta' => [
+            'Home' => 'முகப்பு',
+            'Services' => 'சேவைகள்',
+            'Countries' => 'நாடுகள் & விசா',
+            'Offers' => 'சிறப்பு சலுகைகள்',
+            'Careers' => 'வேலைவாய்ப்பு',
+            'About Us' => 'எங்களைப் பற்றி',
+            'Contact Us' => 'தொடர்பு கொள்ள',
+            'Portal Login' => 'போர்ட்டல் உள்நுழைவு',
+            'Dashboard' => 'டேஷ்போர்டு',
+            'One Group. Multiple Solutions.' => 'ஒரே குழுமம். பல தீர்வுகள்.',
+            'Get a Free Consultation' => 'இலவச ஆலோசனை பெற',
+            'Explore Our Services' => 'சேவைகளை அறிய',
+        ]
+    ];
+    $lang = APP_LANG;
+    return $dictionary[$lang][$text] ?? $text;
+}
 
 // Dynamic APP_URL Auto-Detection for Localhost & Cloud Vercel Hosting
 if (!defined('APP_URL')) {
