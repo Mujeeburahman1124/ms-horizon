@@ -15,6 +15,23 @@ $currentUri = \App\Core\Request::getUri();
   <div class="loader-logo">MS <span>Horizon</span></div>
   <div class="loader-bar"><div class="loader-bar-fill"></div></div>
 </div>
+<script>
+(function(){
+  function dismissLoader(){
+    var el = document.getElementById('page-loader');
+    if (el) {
+      el.classList.add('loaded');
+      setTimeout(function(){ el.style.display = 'none'; }, 400);
+    }
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(dismissLoader, 200);
+  } else {
+    window.addEventListener('DOMContentLoaded', function(){ setTimeout(dismissLoader, 200); });
+  }
+  setTimeout(dismissLoader, 600);
+})();
+</script>
 
 <!-- ─── NAVIGATION ────────────────────────────────────────────── -->
 <header>
@@ -39,126 +56,90 @@ $currentUri = \App\Core\Request::getUri();
         <button class="nav-link-btn" role="menuitem" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-th-large"></i> Services <i class="fas fa-chevron-down chevron"></i>
         </button>
-        <div class="mega-menu" role="menu" aria-label="Services submenu">
-          <?php foreach ($nav_divisions as $div): ?>
-          <a href="<?= APP_URL . $div['url'] ?>" class="mega-menu-item" role="menuitem">
-            <div class="mega-icon"><i class="fas <?= $div['icon'] ?>"></i></div>
-            <div class="mega-info">
-              <h4><?= $div['title'] ?></h4>
-              <p><?= $div['desc'] ?></p>
-            </div>
-          </a>
-          <?php endforeach; ?>
+
+        <!-- Mega Menu -->
+        <div class="mega-menu" role="menu">
+          <div class="mega-menu-grid">
+
+            <?php foreach ($nav_divisions as $div): ?>
+            <a href="<?= APP_URL . $div['url'] ?>" class="mega-card" role="menuitem">
+              <div class="mega-card-icon">
+                <i class="fas <?= $div['icon'] ?>"></i>
+              </div>
+              <div class="mega-card-info">
+                <h4><?= $div['title'] ?></h4>
+                <p><?= $div['desc'] ?></p>
+              </div>
+            </a>
+            <?php endforeach; ?>
+
+          </div>
+          <div class="mega-menu-footer">
+            <span><i class="fas fa-shield-halved"></i> Registered Corporate Group in Dubai, UAE</span>
+            <a href="<?= APP_URL ?>/services" style="color:var(--clr-gold);font-weight:600;">View All Services &rsaquo;</a>
+          </div>
         </div>
       </li>
 
       <li class="nav-item" role="none">
-        <button class="nav-link-btn" role="menuitem" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-globe"></i> Countries <i class="fas fa-chevron-down chevron"></i>
-        </button>
-        <div class="mega-menu" style="min-width:520px;grid-template-columns:repeat(2,1fr);" role="menu">
-          <a href="<?= APP_URL ?>/travel/countries" class="mega-menu-item" role="menuitem">
-            <div class="mega-icon"><i class="fas fa-map-marked-alt"></i></div>
-            <div class="mega-info"><h4>UAE & GCC Countries</h4><p>UAE, Qatar, Oman, Saudi, Bahrain</p></div>
-          </a>
-          <a href="<?= APP_URL ?>/travel/countries" class="mega-menu-item" role="menuitem">
-            <div class="mega-icon"><i class="fas fa-globe-americas"></i></div>
-            <div class="mega-info"><h4>Global Destinations</h4><p>Sri Lanka, India, Europe, USA, Canada</p></div>
-          </a>
-        </div>
+        <a href="<?= APP_URL ?>/travel/countries" class="nav-link-btn" role="menuitem"><i class="fas fa-globe"></i> Countries</a>
       </li>
 
       <li class="nav-item" role="none">
         <a href="<?= APP_URL ?>/offers" class="nav-link-btn" role="menuitem"><i class="fas fa-tags"></i> Offers</a>
       </li>
+
       <li class="nav-item" role="none">
         <a href="<?= APP_URL ?>/careers" class="nav-link-btn" role="menuitem"><i class="fas fa-briefcase"></i> Careers</a>
       </li>
+
       <li class="nav-item" role="none">
-        <a href="<?= APP_URL ?>/about" class="nav-link-btn" role="menuitem"><i class="fas fa-info-circle"></i> About Us</a>
+        <a href="<?= APP_URL ?>/about" class="nav-link-btn" role="menuitem"><i class="fas fa-building"></i> About Us</a>
       </li>
+
       <li class="nav-item" role="none">
         <a href="<?= APP_URL ?>/contact" class="nav-link-btn" role="menuitem"><i class="fas fa-envelope"></i> Contact Us</a>
       </li>
     </ul>
 
-    <!-- Right Actions -->
-    <div class="nav-actions">
-      <!-- Multilingual Language Selector (EN, AR, TA) -->
-      <div class="dropdown">
-        <button class="btn-theme-toggle dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Select Language" style="width:auto;padding:0 .75rem;border-radius:99px;font-size:.78rem;font-weight:700;">
-          <i class="fas fa-language me-1"></i> EN
+    <!-- Right Controls -->
+    <div class="nav-controls">
+      <!-- Language Selector -->
+      <div class="dropdown d-inline-block">
+        <button class="nav-ctrl-btn dropdown-toggle" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" title="Change Language">
+          <i class="fas fa-language"></i> <span class="d-none d-md-inline ms-1">EN</span>
         </button>
-        <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow-lg border-secondary">
-          <li><a class="dropdown-item active" href="?lang=en">🇬🇧 English</a></li>
-          <li><a class="dropdown-item" href="?lang=ar">🇦🇪 العربية (Arabic)</a></li>
-          <li><a class="dropdown-item" href="?lang=ta">🇱🇰 தமிழ் (Tamil)</a></li>
+        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="langDropdown" style="background:var(--clr-navy-light);border:1px solid rgba(255,255,255,.1);">
+          <li><a class="dropdown-item text-white" href="?lang=en"><span class="me-2">🇦🇪</span> English (EN)</a></li>
+          <li><a class="dropdown-item text-white" href="?lang=ar"><span class="me-2">🇦🇪</span> العربية (AR)</a></li>
+          <li><a class="dropdown-item text-white" href="?lang=ta"><span class="me-2">🇮🇳</span> தமிழ் (TA)</a></li>
         </ul>
       </div>
 
-      <!-- Search -->
-      <a href="<?= APP_URL ?>/search" class="btn-theme-toggle" aria-label="Search" title="Search">
-        <i class="fas fa-search"></i>
-      </a>
-
       <!-- Theme Toggle -->
-      <button class="btn-theme-toggle" aria-label="Toggle dark mode" id="themeToggle">
+      <button class="nav-ctrl-btn btn-theme-toggle" aria-label="Toggle dark/light theme" title="Toggle Theme">
         <i class="fas fa-moon"></i>
       </button>
 
-      <!-- Portal Login -->
-      <?php if ($current_user = \App\Core\Session::get('user')): ?>
-      <a href="<?= APP_URL ?>/admin/dashboard" class="btn-nav-portal">
-        <i class="fas fa-th-large"></i> Dashboard
-      </a>
+      <!-- User Account / Login Button -->
+      <?php if (!empty($current_user)): ?>
+        <a href="<?= APP_URL ?>/admin/dashboard" class="btn btn-gold btn-sm d-none d-sm-inline-flex" style="border-radius:20px;padding:.4rem 1rem;">
+          <i class="fas fa-user-circle me-1"></i> Dashboard
+        </a>
       <?php else: ?>
-      <a href="<?= APP_URL ?>/login" class="btn-nav-portal">
-        <i class="fas fa-user"></i> Portal Login
-      </a>
+        <a href="<?= APP_URL ?>/login" class="btn btn-outline-gold btn-sm d-none d-sm-inline-flex" style="border-radius:20px;padding:.4rem 1rem;">
+          <i class="fas fa-lock me-1"></i> Portal Login
+        </a>
       <?php endif; ?>
 
-      <!-- Hamburger (mobile) -->
-      <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" id="hamburgerBtn">
-        <span></span><span></span><span></span>
+      <!-- Mobile Hamburger -->
+      <button class="nav-hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
     </div>
 
-  </div><!-- /.container -->
+  </div>
 </nav>
 </header>
-
-<!-- ─── FLASH MESSAGES ─────────────────────────────────────────── -->
-<?php
-$flash_success = \App\Core\Session::getFlash('success');
-$flash_error   = \App\Core\Session::getFlash('error');
-$flash_info    = \App\Core\Session::getFlash('info');
-?>
-<?php if ($flash_success || $flash_error || $flash_info): ?>
-<div id="flash-auto-toast" style="display:none;"
-  data-type="<?= $flash_success ? 'success' : ($flash_error ? 'error' : 'info') ?>"
-  data-message="<?= htmlspecialchars($flash_success ?: $flash_error ?: $flash_info, ENT_QUOTES, 'UTF-8') ?>">
-</div>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const el = document.getElementById('flash-auto-toast');
-  if (el && typeof showToast === 'function') {
-    showToast(el.dataset.message, el.dataset.type);
-  }
-});
-</script>
-<?php endif; ?>
-
-<!-- ─── COOKIE BANNER ─────────────────────────────────────────── -->
-<div id="cookie-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9000;background:rgba(10,22,40,0.97);backdrop-filter:blur(16px);border-top:1px solid rgba(212,175,55,.3);padding:1rem 2rem;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;">
-  <p style="color:rgba(255,255,255,.75);font-size:.82rem;margin:0;max-width:640px;">
-    <i class="fas fa-cookie-bite" style="color:#D4AF37;margin-right:.5rem;"></i>
-    We use cookies to enhance your browsing experience. By continuing, you agree to our
-    <a href="<?= APP_URL ?>/cookie-policy" style="color:#D4AF37;">Cookie Policy</a>.
-  </p>
-  <button class="cookie-accept btn btn-primary btn-sm" id="cookieAccept">
-    <i class="fas fa-check"></i> Accept & Continue
-  </button>
-</div>
-
-<!-- ─── MAIN CONTENT BEGINS ──────────────────────────────────── -->
-<main id="main-content">
