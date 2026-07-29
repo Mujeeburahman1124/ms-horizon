@@ -5,13 +5,21 @@ use App\Core\Database;
 
 class Offer
 {
-    public static function getActive(): array
+    public static function autoArchiveExpired(): void
     {
         try {
-            // Auto-archive expired offers
             Database::query(
                 "UPDATE offers SET is_archived = 1 WHERE expiry_date < CURDATE() AND is_archived = 0"
             );
+        } catch (\Exception $e) {
+            // Silence fallback
+        }
+    }
+
+    public static function getActive(): array
+    {
+        try {
+            self::autoArchiveExpired();
 
             return Database::fetchAll(
                 "SELECT o.*, d.title as division_name, d.slug as division_slug
