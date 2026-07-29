@@ -70,12 +70,13 @@ define('APP_ENV', getenv('APP_ENV') ?: 'development');
 define('APP_NAME', getenv('APP_NAME') ?: 'MS Horizon Group');
 define('APP_SLOGAN', 'Empowering Global Progress through Integrated Solutions');
 
-// Database Configuration (MySQL 8 / Railway Cloud MySQL)
-define('DB_HOST', getenv('DB_HOST') ?: 'sakura.proxy.rlwy.net');
-define('DB_PORT', getenv('DB_PORT') ?: '49932');
-define('DB_NAME', getenv('DB_NAME') ?: 'railway');
+// Database Configuration (Auto-Detect Localhost vs Railway Cloud MySQL)
+$isLocalDev = (isset($_SERVER['HTTP_HOST']) && (str_contains($_SERVER['HTTP_HOST'], 'localhost') || str_contains($_SERVER['HTTP_HOST'], '127.0.0.1'))) || (php_sapi_name() === 'cli' && empty(getenv('DB_HOST')));
+define('DB_HOST', getenv('DB_HOST') ?: ($isLocalDev ? 'localhost' : 'sakura.proxy.rlwy.net'));
+define('DB_PORT', getenv('DB_PORT') ?: ($isLocalDev ? '3306' : '49932'));
+define('DB_NAME', getenv('DB_NAME') ?: ($isLocalDev ? 'ms_horizon' : 'railway'));
 define('DB_USER', getenv('DB_USER') ?: 'root');
-define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : 'nIILZhVZJnSzcrcMdXzVhbLFiwGfgrPh');
+define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : ($isLocalDev ? '' : 'nIILZhVZJnSzcrcMdXzVhbLFiwGfgrPh'));
 define('DB_CHARSET', 'utf8mb4');
 
 // Real-Time SMTP Email Configuration
