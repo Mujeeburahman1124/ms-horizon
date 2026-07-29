@@ -1,23 +1,38 @@
 <?php
 /**
- * MS Horizon Group - Enterprise Configuration (Real-Time Gmail SMTP Connected)
+ * MS Horizon Group - Enterprise Configuration (Dynamic APP_URL Auto-Detect + Gmail SMTP)
  */
 
+// Dynamic APP_URL Auto-Detection for Localhost & Cloud Vercel Hosting
+if (!defined('APP_URL')) {
+    $envUrl = getenv('APP_URL');
+    if (!empty($envUrl)) {
+        $appUrl = rtrim($envUrl, '/');
+    } else {
+        $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') || 
+                  (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') 
+                  ? 'https' : 'http';
+        $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+        $basePath = (str_contains($host, 'localhost') || str_contains($host, '127.0.0.1')) ? '/ms-horizon' : '';
+        $appUrl = $scheme . '://' . $host . $basePath;
+    }
+    define('APP_URL', $appUrl);
+}
+
 // Application Environment
-define('APP_ENV', getenv('APP_ENV') ?: 'development'); // 'development' or 'production'
+define('APP_ENV', getenv('APP_ENV') ?: 'development');
 define('APP_NAME', getenv('APP_NAME') ?: 'MS Horizon Group');
 define('APP_SLOGAN', 'Empowering Global Progress through Integrated Solutions');
-define('APP_URL', getenv('APP_URL') ?: 'http://localhost/ms-horizon');
 
-// Database Configuration (MySQL 8)
-define('DB_HOST', getenv('DB_HOST') ?: '127.0.0.1');
-define('DB_PORT', getenv('DB_PORT') ?: '3306');
-define('DB_NAME', getenv('DB_NAME') ?: 'ms_horizon');
+// Database Configuration (MySQL 8 / Railway Cloud MySQL)
+define('DB_HOST', getenv('DB_HOST') ?: 'sakura.proxy.rlwy.net');
+define('DB_PORT', getenv('DB_PORT') ?: '49932');
+define('DB_NAME', getenv('DB_NAME') ?: 'railway');
 define('DB_USER', getenv('DB_USER') ?: 'root');
-define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : '');
+define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : 'nIILZhVZJnSzcrcMdXzVhbLFiwGfgrPh');
 define('DB_CHARSET', 'utf8mb4');
 
-// Real-Time SMTP Email Configuration (Verified Gmail App Password Connected)
+// Real-Time SMTP Email Configuration
 define('SMTP_ENABLED', true);
 define('SMTP_HOST', getenv('SMTP_HOST') ?: 'smtp.gmail.com');
 define('SMTP_PORT', getenv('SMTP_PORT') ?: 587);
@@ -34,12 +49,12 @@ define('SITE_EMAIL', 'info@mshorizontravel.com');
 
 // Security Configuration
 define('APP_KEY', getenv('APP_KEY') ?: 'mshorizon_secure_encryption_key_2026_enterprise_x89!');
-define('SESSION_LIFETIME', 7200); // 2 hours
+define('SESSION_LIFETIME', 7200);
 define('CSRF_TOKEN_NAME', 'mshorizon_csrf_token');
 
 // Upload Paths
 define('UPLOAD_DIR', __DIR__ . '/public/assets/uploads/');
-define('MAX_UPLOAD_SIZE', 10 * 1024 * 1024); // 10MB
+define('MAX_UPLOAD_SIZE', 10 * 1024 * 1024);
 define('ALLOWED_FILE_EXTENSIONS', ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'webp']);
 
 // Auto-Archive Expired Offers
