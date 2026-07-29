@@ -247,17 +247,45 @@ ul { list-style: none; }
 }
 .btn-theme-toggle:hover { background: rgba(212,175,55,.3); }
 
-/* Mobile hamburger */
 .nav-hamburger {
   display: none;
-  flex-direction: column; gap: 5px;
-  cursor: pointer; padding: .5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 38px;
+  height: 38px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  cursor: pointer;
+  padding: 0;
+  outline: none !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease;
+}
+.nav-hamburger:hover, .nav-hamburger:focus {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: rgba(212, 175, 55, 0.5);
 }
 .nav-hamburger span {
-  display: block; width: 26px; height: 2px;
-  background: white; border-radius: 2px;
-  transition: all var(--t-mid);
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #ffffff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
 }
+.nav-hamburger.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav-hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.nav-hamburger.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 
 /* ─── HERO SECTION ───────────────────────────────────────────── */
 .hero-section {
