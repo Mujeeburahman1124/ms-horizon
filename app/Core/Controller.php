@@ -29,6 +29,11 @@ abstract class Controller
         }
     }
 
+    protected function renderAdmin(string $view, array $data = []): void
+    {
+        $this->render($view, $data, 'admin');
+    }
+
     protected function json(array $data, int $statusCode = 200): void
     {
         Response::json($data, $statusCode);
