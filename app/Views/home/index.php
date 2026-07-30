@@ -4,46 +4,47 @@
   <div class="hero-grid-overlay"></div>
 
   <div class="hero-content">
-    <!-- Hero Left -->
+    <!-- Hero Left Column -->
     <div class="hero-left" data-aos="fade-right">
       <div class="hero-badge">
-        <i class="fas fa-star"></i>
-        MS Horizon — Your Global Partner for Travel, Talent, Business & Technology
+        <i class="fas fa-crown"></i>
+        <span>MS Horizon — UAE Premier Corporate Group</span>
       </div>
 
       <h1 class="hero-heading">
         One Group.<br>
-        <span class="highlight">Multiple Solutions.</span>
+        <span class="highlight">Multiple Enterprise</span><br>
+        <span class="highlight-cyan">Solutions.</span>
       </h1>
 
       <p class="hero-subheading">
-        Travel, reservations, recruitment, business consultancy and software development services under one trusted group.
+        Streamline your global travel, ticket reservations, executive recruitment, UAE company formation, and custom software development with one trusted corporate partner.
       </p>
 
       <div class="hero-actions">
         <a href="<?= APP_URL ?>/services" class="btn btn-primary btn-lg">
-          <i class="fas fa-th-large"></i> Explore Our Services
+          <i class="fas fa-th-large"></i> Explore All Divisions
         </a>
         <a href="<?= APP_URL ?>/contact" class="btn btn-outline btn-lg">
-          <i class="fas fa-headset"></i> Get a Free Consultation
+          <i class="fas fa-headset"></i> Free Consultation
         </a>
-        <a href="https://wa.me/<?= SITE_WHATSAPP ?>" target="_blank" class="btn btn-emerald btn-lg">
-          <i class="fab fa-whatsapp"></i> Contact on WhatsApp
+        <a href="https://wa.me/<?= SITE_WHATSAPP ?>" target="_blank" rel="noopener" class="btn btn-emerald btn-lg">
+          <i class="fab fa-whatsapp"></i> Chat on WhatsApp
         </a>
       </div>
 
       <div class="hero-stats">
         <div class="hero-stat-item">
-          <span class="hero-stat-number" data-counter data-target="1800" data-suffix="+">1800+</span>
+          <span class="hero-stat-number" data-counter data-target="1800" data-suffix="+">1,800+</span>
           <span class="hero-stat-label">Satisfied Clients</span>
         </div>
         <div class="hero-stat-item">
-          <span class="hero-stat-number" data-counter data-target="5000" data-suffix="+">5000+</span>
+          <span class="hero-stat-number" data-counter data-target="5000" data-suffix="+">5,000+</span>
           <span class="hero-stat-label">Visas Processed</span>
         </div>
         <div class="hero-stat-item">
           <span class="hero-stat-number" data-counter data-target="400" data-suffix="+">400+</span>
-          <span class="hero-stat-label">Businesses Formed</span>
+          <span class="hero-stat-label">Companies Setup</span>
         </div>
         <div class="hero-stat-item">
           <span class="hero-stat-number" data-counter data-target="120" data-suffix="+">120+</span>
@@ -52,20 +53,22 @@
       </div>
     </div><!-- /.hero-left -->
 
-    <!-- Hero Right — Quick Enquiry Panel -->
+    <!-- Hero Right Column — Quick Consultation Glass Card -->
     <div class="hero-right" data-aos="fade-left">
-      <div class="hero-card-float">
-        <h3><i class="fas fa-paper-plane"></i> Quick Enquiry Form</h3>
-        <p style="color:rgba(255,255,255,.5);font-size:.8rem;margin-bottom:1.25rem;">
-          Get a callback from our experts within 2 hours.
+      <div class="hero-card-float spotlight-card">
+        <h3><i class="fas fa-paper-plane text-gold"></i> Quick Service Enquiry</h3>
+        <p style="color:rgba(255,255,255,.6);font-size:.825rem;margin-bottom:1.5rem;">
+          Get a callback & personalized quote from our corporate advisors within 2 hours.
         </p>
+
         <form id="heroEnquiryForm" data-ajax="true" action="<?= APP_URL ?>/quick-enquiry" method="POST" enctype="multipart/form-data">
           <input type="hidden" name="<?= CSRF_TOKEN_NAME ?>" value="<?= $csrf_token ?>">
-          
+
           <div class="enquiry-form-group">
             <label for="hero_name">Full Name</label>
-            <input type="text" id="hero_name" name="name" placeholder="Your full name" required autocomplete="name">
+            <input type="text" id="hero_name" name="name" placeholder="e.g. Mohammed Al-Maktoum" required autocomplete="name">
           </div>
+
           <div class="row g-2">
             <div class="col-6">
               <div class="enquiry-form-group">
@@ -80,51 +83,55 @@
               </div>
             </div>
           </div>
+
           <div class="enquiry-form-group">
             <label for="hero_email">Email Address</label>
-            <input type="email" id="hero_email" name="email" placeholder="your@email.com" required autocomplete="email">
+            <input type="email" id="hero_email" name="email" placeholder="name@company.com" required autocomplete="email">
           </div>
+
           <div class="row g-2">
             <div class="col-6">
               <div class="enquiry-form-group">
-                <label for="hero_country">Country</label>
+                <label for="hero_country">Target Region</label>
                 <select id="hero_country" name="country" required>
-                  <option value="UAE">UAE</option>
-                  <option value="Qatar">Qatar</option>
-                  <option value="Oman">Oman</option>
-                  <option value="Saudi Arabia">Saudi Arabia</option>
-                  <option value="Bahrain">Bahrain</option>
-                  <option value="Sri Lanka">Sri Lanka</option>
-                  <option value="India">India</option>
-                  <option value="Europe">Europe</option>
-                  <option value="USA">USA</option>
-                  <option value="Canada">Canada</option>
+                  <option value="UAE">🇦🇪 UAE</option>
+                  <option value="Qatar">🇶🇦 Qatar</option>
+                  <option value="Oman">🇴🇲 Oman</option>
+                  <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
+                  <option value="Bahrain">🇧🇭 Bahrain</option>
+                  <option value="Europe">🇪🇺 Schengen / Europe</option>
+                  <option value="UK">🇬🇧 United Kingdom</option>
+                  <option value="USA">🇺🇸 USA & Canada</option>
+                  <option value="India">🇮🇳 India & Sri Lanka</option>
                 </select>
               </div>
             </div>
             <div class="col-6">
               <div class="enquiry-form-group">
-                <label for="hero_service">Required Service</label>
+                <label for="hero_service">Required Division</label>
                 <select id="hero_service" name="service" required>
                   <option value="Reservations Services">✈ Reservations Services</option>
-                  <option value="Travel and Tourism">🌍 Travel and Tourism</option>
+                  <option value="Travel and Tourism">🌍 Travel & Tourism</option>
                   <option value="Human Resource Consultancy">👥 HR Consultancy</option>
-                  <option value="Business Consultancy">🏢 Business Consultancy</option>
-                  <option value="Software Development">💻 Software Development</option>
+                  <option value="Business Consultancy">🏢 Business Setup</option>
+                  <option value="Software Development">💻 Software Dev</option>
                 </select>
               </div>
             </div>
           </div>
+
           <div class="enquiry-form-group">
-            <label for="hero_msg">Brief Message</label>
-            <textarea id="hero_msg" name="message" rows="2" placeholder="Tell us what you need..." required></textarea>
+            <label for="hero_msg">Brief Requirements</label>
+            <textarea id="hero_msg" name="message" rows="2" placeholder="Tell us how we can help your business..." required></textarea>
           </div>
+
           <div class="enquiry-form-group">
-            <label for="hero_doc">Document Upload (Optional)</label>
-            <input type="file" id="hero_doc" name="document" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" class="form-control" style="background:rgba(255,255,255,.05);color:white;">
+            <label for="hero_doc">Attach Document (Optional)</label>
+            <input type="file" id="hero_doc" name="document" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" class="form-control" style="background:rgba(255,255,255,.06);color:white;border-color:rgba(255,255,255,.15);">
           </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
-            <i class="fas fa-paper-plane"></i> Submit Enquiry
+
+          <button type="submit" class="btn btn-primary" style="width:100%;margin-top:.5rem;">
+            <i class="fas fa-paper-plane"></i> Submit Request
           </button>
         </form>
       </div>
@@ -132,193 +139,406 @@
   </div><!-- /.hero-content -->
 </section>
 
-<!-- ─── 5 DIVISIONS SECTION ───────────────────────────────────── -->
-<section class="section" style="background:var(--bg-body);" aria-labelledby="divisions-heading">
+<!-- ─── SVG WAVE DIVIDER 1 ────────────────────────────────────── -->
+<div class="svg-divider">
+  <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+    <path d="M0,0 C150,90 350,-40 500,55 C650,150 900,10 1200,40 L1200,120 L0,120 Z" class="shape-fill"></path>
+  </svg>
+</div>
+
+<!-- ─── 5 MAIN SERVICE DIVISIONS SECTION ───────────────────────── -->
+<section class="section" aria-labelledby="divisions-heading">
   <div class="container">
     <div class="section-header animate-on-scroll">
-      <span class="section-eyebrow">Group Services</span>
+      <span class="section-eyebrow"><i class="fas fa-layer-group me-1"></i> Core Capabilities</span>
       <h2 class="section-title" id="divisions-heading">
-        Five Main Service <span class="highlight">Divisions</span>
+        Five Strategic <span class="highlight">Service Divisions</span>
       </h2>
       <p class="section-subtitle">
-        Providing integrated solutions under one trusted corporate group.
+        Empowering global individuals and enterprises with integrated corporate solutions under MS Horizon Group.
       </p>
     </div>
 
     <div class="division-grid">
-      <?php
-      $divisions_data = [
-        ['icon'=>'fa-plane-departure','title'=>'Reservations Services','desc'=>'Airline ticket reservations, hotel bookings, airport transfers, tour bookings, travel insurance, appointment & event bookings, corporate travel.','url'=>'/reservations','color'=>'#D4AF37'],
-        ['icon'=>'fa-passport','title'=>'Travel and Tourism','desc'=>'Worldwide visit visas, tourist visas, flight tickets, holiday packages, hotel bookings, visa documentation, travel insurance & airport transfers.','url'=>'/travel','color'=>'#00B894'],
-        ['icon'=>'fa-users-gear','title'=>'Human Resource Consultancy','desc'=>'Recruitment services, candidate sourcing, overseas recruitment support, CV & interview prep, employee outsourcing & workforce solutions.','url'=>'/careers','color'=>'#2980B9'],
-        ['icon'=>'fa-building-columns','title'=>'Business Consultancy','desc'=>'UAE business setup, Free Zone, Mainland & Offshore company formation, trade licence, PRO, immigration, corporate bank account & accounting.','url'=>'/business','color'=>'#9B59B6'],
-        ['icon'=>'fa-laptop-code','title'=>'Software Development','desc'=>'Business & E-commerce website development, mobile app development, custom software, CRM, HR, booking systems, travel & visa portals.','url'=>'/software','color'=>'#E74C3C'],
-      ];
-      foreach($divisions_data as $i => $div): ?>
-      <div class="division-card animate-on-scroll" style="transition-delay:<?= $i*80 ?>ms;" onclick="window.location='<?= APP_URL . $div['url'] ?>'">
-        <div class="division-card-icon" style="background:rgba(<?= implode(',', sscanf(ltrim($div['color'],'#'),'%02x%02x%02x')) ?>,.1);color:<?= $div['color'] ?>;border-color:rgba(<?= implode(',', sscanf(ltrim($div['color'],'#'),'%02x%02x%02x')) ?>,.2);">
-          <i class="fas <?= $div['icon'] ?>"></i>
-        </div>
-        <h3><?= $div['title'] ?></h3>
-        <p><?= $div['desc'] ?></p>
-        <div class="division-card-link" style="color:<?= $div['color'] ?>;">
-          Learn More <i class="fas fa-arrow-right fa-sm"></i>
+      <!-- 1. Reservations Services -->
+      <div class="division-card" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop');" onclick="window.location='<?= APP_URL ?>/reservations'">
+        <div class="division-card-overlay"></div>
+        <div class="division-card-content">
+          <span class="division-card-badge" style="background:rgba(212,175,55,.2);color:#D4AF37;border:1px solid rgba(212,175,55,.4);">
+            <i class="fas fa-plane-departure"></i> Division 01
+          </span>
+          <div class="division-card-icon" style="background:var(--grad-gold);color:#0A1628;">
+            <i class="fas fa-plane"></i>
+          </div>
+          <h3>Reservations Services</h3>
+          <p>Flight booking, luxury hotel suites, airport transfers, tour reservations, and 24/7 corporate travel management.</p>
+          <div class="division-subpills">
+            <span class="subpill">Airline Tickets</span>
+            <span class="subpill">Hotel Suites</span>
+            <span class="subpill">Airport Transfers</span>
+          </div>
+          <div class="division-card-link" style="color:var(--clr-gold);">
+            Learn More <i class="fas fa-arrow-right"></i>
+          </div>
         </div>
       </div>
-      <?php endforeach; ?>
+
+      <!-- 2. Travel and Tourism -->
+      <div class="division-card" style="background-image: url('https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800&auto=format&fit=crop');" onclick="window.location='<?= APP_URL ?>/travel'">
+        <div class="division-card-overlay"></div>
+        <div class="division-card-content">
+          <span class="division-card-badge" style="background:rgba(0,184,148,.2);color:#00B894;border:1px solid rgba(0,184,148,.4);">
+            <i class="fas fa-passport"></i> Division 02
+          </span>
+          <div class="division-card-icon" style="background:var(--grad-emerald);color:white;">
+            <i class="fas fa-globe-americas"></i>
+          </div>
+          <h3>Travel & Tourism</h3>
+          <p>Worldwide tourist visas, custom holiday packages, flight bookings, visa documentation & fast-track application processing.</p>
+          <div class="division-subpills">
+            <span class="subpill">Tourist Visas</span>
+            <span class="subpill">Holiday Packages</span>
+            <span class="subpill">Fast Track</span>
+          </div>
+          <div class="division-card-link" style="color:var(--clr-emerald);">
+            Learn More <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. HR Consultancy -->
+      <div class="division-card" style="background-image: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop');" onclick="window.location='<?= APP_URL ?>/careers'">
+        <div class="division-card-overlay"></div>
+        <div class="division-card-content">
+          <span class="division-card-badge" style="background:rgba(37,99,235,.2);color:#3B82F6;border:1px solid rgba(37,99,235,.4);">
+            <i class="fas fa-users-gear"></i> Division 03
+          </span>
+          <div class="division-card-icon" style="background:var(--grad-sapphire);color:white;">
+            <i class="fas fa-user-tie"></i>
+          </div>
+          <h3>HR Consultancy</h3>
+          <p>Executive talent acquisition, overseas manpower sourcing, CV optimization, interview prep & workforce outsourcing.</p>
+          <div class="division-subpills">
+            <span class="subpill">Executive Search</span>
+            <span class="subpill">Overseas Hiring</span>
+            <span class="subpill">Outsourcing</span>
+          </div>
+          <div class="division-card-link" style="color:var(--clr-blue-acc);">
+            Learn More <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Business Setup -->
+      <div class="division-card" style="background-image: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=800&auto=format&fit=crop');" onclick="window.location='<?= APP_URL ?>/business'">
+        <div class="division-card-overlay"></div>
+        <div class="division-card-content">
+          <span class="division-card-badge" style="background:rgba(139,92,246,.2);color:#A855F7;border:1px solid rgba(139,92,246,.4);">
+            <i class="fas fa-building-columns"></i> Division 04
+          </span>
+          <div class="division-card-icon" style="background:var(--grad-amethyst);color:white;">
+            <i class="fas fa-city"></i>
+          </div>
+          <h3>Business Consultancy</h3>
+          <p>UAE business formation in Freezone, Mainland & Offshore jurisdictions, PRO services, investor visas & corporate bank account opening.</p>
+          <div class="division-subpills">
+            <span class="subpill">Freezone & Mainland</span>
+            <span class="subpill">Trade License</span>
+            <span class="subpill">Corporate Banking</span>
+          </div>
+          <div class="division-card-link" style="color:var(--clr-violet);">
+            Learn More <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Software Development -->
+      <div class="division-card" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop');" onclick="window.location='<?= APP_URL ?>/software'">
+        <div class="division-card-overlay"></div>
+        <div class="division-card-content">
+          <span class="division-card-badge" style="background:rgba(231,76,60,.2);color:#E74C3C;border:1px solid rgba(231,76,60,.4);">
+            <i class="fas fa-laptop-code"></i> Division 05
+          </span>
+          <div class="division-card-icon" style="background:linear-gradient(135deg, #E74C3C, #FF7675);color:white;">
+            <i class="fas fa-code"></i>
+          </div>
+          <h3>Software Development</h3>
+          <p>Enterprise web applications, iOS/Android mobile apps, custom CRM & ERP systems, travel portals & AI automation.</p>
+          <div class="division-subpills">
+            <span class="subpill">Custom Web & SaaS</span>
+            <span class="subpill">Mobile Apps</span>
+            <span class="subpill">AI & Portals</span>
+          </div>
+          <div class="division-card-link" style="color:var(--clr-red);">
+            Learn More <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ─── WHY CHOOSE MS HORIZON ──────────────────────────────────── -->
-<section class="section" aria-labelledby="why-heading">
+<!-- ─── DESTINATIONS & VISA EXPLORER SECTION ─────────────────────── -->
+<section class="section section-sm" style="background:var(--clr-smoke);" aria-labelledby="countries-heading">
   <div class="container">
     <div class="section-header animate-on-scroll">
-      <span class="section-eyebrow">Why Choose Us</span>
-      <h2 class="section-title" id="why-heading">
-        Why Choose <span class="highlight">MS Horizon</span>
-      </h2>
-    </div>
-
-    <div class="why-grid">
-      <?php
-      $whyPoints = [
-        ['icon'=>'fa-layer-group','title'=>'Multiple Services Under One Group','desc'=>'All your travel, HR, business, and software needs solved by one trusted organisation.'],
-        ['icon'=>'fa-users','title'=>'Professional Support Team','desc'=>'Certified consultants, travel specialists, recruiters, and senior software engineers.'],
-        ['icon'=>'fa-eye','title'=>'Transparent Service Process','desc'=>'Clear pricing, zero hidden charges, real-time application tracking.'],
-        ['icon'=>'fa-globe','title'=>'International Service Coverage','desc'=>'Seamless service execution across UAE, Qatar, Oman, Saudi Arabia, Bahrain, Sri Lanka, India, Europe, USA, Canada.'],
-        ['icon'=>'fa-headset','title'=>'Fast Customer Assistance','desc'=>'24/7 dedicated support via WhatsApp, phone, email, and direct portal messaging.'],
-        ['icon'=>'fa-chart-line','title'=>'Dedicated Business Solutions','desc'=>'Tailored corporate accounts, custom packages, and dedicated key account managers.'],
-      ];
-      foreach($whyPoints as $i => $pt): ?>
-      <div class="why-card animate-on-scroll" style="transition-delay:<?= $i*60 ?>ms;">
-        <div class="why-icon"><i class="fas <?= $pt['icon'] ?>"></i></div>
-        <div class="why-info">
-          <h4><?= $pt['title'] ?></h4>
-          <p><?= $pt['desc'] ?></p>
-        </div>
-      </div>
-      <?php endforeach; ?>
-    </div>
-  </div>
-</section>
-
-<!-- ─── COUNTRY-WISE SERVICES ──────────────────────────────────── -->
-<section class="section style-smoke" style="background:var(--clr-smoke,#F1F5F9);" aria-labelledby="countries-heading">
-  <div class="container">
-    <div class="section-header animate-on-scroll">
-      <span class="section-eyebrow">Global Reach</span>
+      <span class="section-eyebrow"><i class="fas fa-globe me-1"></i> Global Reach</span>
       <h2 class="section-title" id="countries-heading">
-        Country-Wise <span class="highlight">Services</span>
+        Popular Destination <span class="highlight">Visa Services</span>
       </h2>
-      <p class="section-subtitle">Select a country to view available visa, travel, recruitment, business setup, and software solutions.</p>
+      <p class="section-subtitle">
+        Fast, hassle-free visa processing with guaranteed documentation support for top destinations worldwide.
+      </p>
     </div>
 
     <div class="country-grid">
       <?php
-      $countryList = [
-        ['name'=>'UAE','code'=>'AE','flag'=>'🇦🇪'],
-        ['name'=>'Qatar','code'=>'QA','flag'=>'🇶🇦'],
-        ['name'=>'Oman','code'=>'OM','flag'=>'🇴🇲'],
-        ['name'=>'Saudi Arabia','code'=>'SA','flag'=>'🇸🇦'],
-        ['name'=>'Bahrain','code'=>'BH','flag'=>'🇧🇭'],
-        ['name'=>'Sri Lanka','code'=>'LK','flag'=>'🇱🇰'],
-        ['name'=>'India','code'=>'IN','flag'=>'🇮🇳'],
-        ['name'=>'Europe','code'=>'EU','flag'=>'🇪🇺'],
-        ['name'=>'USA','code'=>'US','flag'=>'🇺🇸'],
-        ['name'=>'Canada','code'=>'CA','flag'=>'🇨🇦'],
+      $countries = [
+        ['flag'=>'🇦🇪', 'name'=>'United Arab Emirates', 'tag'=>'Express 24-48 hr Visa', 'url'=>'/travel/countries/uae'],
+        ['flag'=>'🇶🇦', 'name'=>'Qatar',                 'tag'=>'Tourist & Business',   'url'=>'/travel/countries/qatar'],
+        ['flag'=>'🇸🇦', 'name'=>'Saudi Arabia',          'tag'=>'Umrah & Tourist Visa', 'url'=>'/travel/countries/saudi'],
+        ['flag'=>'🇴🇲', 'name'=>'Oman',                  'tag'=>'E-Visa Processing',    'url'=>'/travel/countries/oman'],
+        ['flag'=>'🇧🇭', 'name'=>'Bahrain',               'tag'=>'Fast Approval',        'url'=>'/travel/countries/bahrain'],
+        ['flag'=>'🇪🇺', 'name'=>'Schengen / Europe',     'tag'=>'Appointment Assist',   'url'=>'/travel/countries/schengen'],
+        ['flag'=>'🇬🇧', 'name'=>'United Kingdom',        'tag'=>'Standard & Priority',  'url'=>'/travel/countries/uk'],
+        ['flag'=>'🇺🇸', 'name'=>'USA & Canada',           'tag'=>'B1/B2 & Visitor',      'url'=>'/travel/countries/usa'],
+        ['flag'=>'🇱🇰', 'name'=>'Sri Lanka',             'tag'=>'ETA Clearance',        'url'=>'/travel/countries/srilanka'],
+        ['flag'=>'🇮🇳', 'name'=>'India',                 'tag'=>'E-Tourist & Business', 'url'=>'/travel/countries/india'],
       ];
-      foreach ($countryList as $c): ?>
-      <a href="<?= APP_URL ?>/travel/countries" class="country-card text-decoration-none">
-        <div class="country-flag"><?= $c['flag'] ?></div>
+      foreach ($countries as $c): ?>
+      <div class="country-card" onclick="window.location='<?= APP_URL . $c['url'] ?>'">
+        <span class="country-flag"><?= $c['flag'] ?></span>
         <div class="country-name"><?= $c['name'] ?></div>
-        <div class="country-visa-count"><i class="fas fa-check-circle fa-xs text-success"></i> Services Available</div>
-      </a>
+        <span class="country-visa-tag"><?= $c['tag'] ?></span>
+      </div>
       <?php endforeach; ?>
     </div>
   </div>
 </section>
 
-<!-- ─── FEATURED OFFERS SECTION ─────────────────────────────────── -->
-<?php if (!empty($offers)): ?>
+<!-- ─── FEATURED OFFERS SECTION ───────────────────────────────── -->
 <section class="section" aria-labelledby="offers-heading">
   <div class="container">
     <div class="section-header animate-on-scroll">
-      <span class="section-eyebrow">Exclusive Promotions</span>
+      <span class="section-eyebrow"><i class="fas fa-tags me-1"></i> Exclusive Deals</span>
       <h2 class="section-title" id="offers-heading">
-        Featured <span class="highlight">Offers & Packages</span>
+        Featured Corporate <span class="highlight">Offers & Packages</span>
       </h2>
-      <p class="section-subtitle">Business licence offers, visa packages, flight ticket promotions, website development offers, recruitment packages, and seasonal travel promotions.</p>
+      <p class="section-subtitle">
+        Take advantage of our limited-time special promotions across Travel, Business Setup, and Software.
+      </p>
     </div>
 
     <div class="offers-grid">
-      <?php foreach (array_slice($offers, 0, 3) as $offer): ?>
-      <div class="offer-card animate-on-scroll" data-division="<?= htmlspecialchars($offer['division_slug'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-        <div class="offer-badge">
-          <?= round((1 - $offer['offer_price']/$offer['original_price'])*100) ?>% OFF
-        </div>
-        <div class="offer-img" style="background:var(--grad-brand);display:flex;align-items:center;justify-content:center;">
-          <i class="fas fa-tags" style="font-size:4rem;color:rgba(212,175,55,.4);"></i>
+      <!-- Offer 1 -->
+      <div class="offer-card">
+        <span class="offer-badge">SAVE 25%</span>
+        <div class="offer-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=800&auto=format&fit=crop" alt="Dubai Business Setup">
         </div>
         <div class="offer-body">
-          <div class="offer-division"><?= htmlspecialchars($offer['division_name'] ?? '', ENT_QUOTES, 'UTF-8') ?></div>
-          <h3><?= htmlspecialchars($offer['title'], ENT_QUOTES, 'UTF-8') ?></h3>
+          <span class="offer-division">Business Setup</span>
+          <h3>Dubai IFZA Freezone Company License + Visa Package</h3>
           <div class="offer-prices">
-            <span class="price-original">AED <?= number_format($offer['original_price'], 0) ?></span>
-            <span class="price-offer">AED <?= number_format($offer['offer_price'], 0) ?></span>
+            <span class="price-original">AED 18,500</span>
+            <span class="price-offer">AED 13,900</span>
+            <span class="price-currency">ALL INCLUSIVE</span>
           </div>
-          <div class="offer-expiry"><i class="fas fa-clock fa-xs"></i> Expires: <?= date('d M Y', strtotime($offer['expiry_date'])) ?></div>
-          <div class="offer-actions">
-            <a href="<?= APP_URL ?>/offers" class="btn btn-primary btn-sm">
-              <i class="fas fa-info-circle"></i> Enquiry
-            </a>
-            <a href="https://wa.me/<?= SITE_WHATSAPP ?>?text=I'm+interested+in+offer:+<?= urlencode($offer['title']) ?>"
-               target="_blank" class="btn btn-emerald btn-sm">
-              <i class="fab fa-whatsapp"></i> WhatsApp
-            </a>
-          </div>
+          <a href="<?= APP_URL ?>/offers" class="btn btn-primary btn-sm" style="width:100%;">
+            <i class="fas fa-bolt"></i> Claim Offer Now
+          </a>
         </div>
       </div>
-      <?php endforeach; ?>
+
+      <!-- Offer 2 -->
+      <div class="offer-card">
+        <span class="offer-badge">HOT DEAL</span>
+        <div class="offer-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=800&auto=format&fit=crop" alt="Schengen Visa Package">
+        </div>
+        <div class="offer-body">
+          <span class="offer-division">Travel & Tourism</span>
+          <h3>Express Schengen Visa Assistance & Insurance Package</h3>
+          <div class="offer-prices">
+            <span class="price-original">AED 1,200</span>
+            <span class="price-offer">AED 799</span>
+            <span class="price-currency">PER PERSON</span>
+          </div>
+          <a href="<?= APP_URL ?>/offers" class="btn btn-primary btn-sm" style="width:100%;">
+            <i class="fas fa-bolt"></i> Claim Offer Now
+          </a>
+        </div>
+      </div>
+
+      <!-- Offer 3 -->
+      <div class="offer-card">
+        <span class="offer-badge">POPULAR</span>
+        <div class="offer-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop" alt="Corporate Software Development">
+        </div>
+        <div class="offer-body">
+          <span class="offer-division">Software Development</span>
+          <h3>Corporate Portal & E-Commerce Web App Development</h3>
+          <div class="offer-prices">
+            <span class="price-original">AED 6,500</span>
+            <span class="price-offer">AED 4,200</span>
+            <span class="price-currency">CUSTOM DESIGN</span>
+          </div>
+          <a href="<?= APP_URL ?>/offers" class="btn btn-primary btn-sm" style="width:100%;">
+            <i class="fas fa-bolt"></i> Claim Offer Now
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
-<?php endif; ?>
 
-<!-- ─── TESTIMONIALS ───────────────────────────────────────────── -->
-<section class="section style-smoke" style="background:var(--clr-smoke,#F1F5F9);" aria-labelledby="testimonials-heading">
+<!-- ─── BUSINESS PROCESS & WORKFLOW TIMELINE ───────────────────── -->
+<section class="section section-dark" aria-labelledby="process-heading">
   <div class="container">
     <div class="section-header animate-on-scroll">
-      <span class="section-eyebrow">Client Feedback</span>
-      <h2 class="section-title" id="testimonials-heading">
-        Client <span class="highlight">Testimonials</span>
+      <span class="section-eyebrow"><i class="fas fa-route me-1"></i> Seamless Execution</span>
+      <h2 class="section-title" id="process-heading">
+        How We Deliver <span class="highlight">Excellence</span>
       </h2>
+      <p class="section-subtitle">
+        Our simple 4-step process guarantees transparency, speed, and 100% customer satisfaction.
+      </p>
     </div>
 
-    <div class="row g-4">
-      <?php
-      $testimonials = [
-        ['name'=>'Aisha Al-Rahman','title'=>'Free Zone Setup','service'=>'Business Consultancy','text'=>'MS Horizon helped me set up my company in just 5 days. Transparent pricing and exceptional support.','rating'=>5,'initial'=>'A'],
-        ['name'=>'James O\'Brien','title'=>'Executive Recruitment','service'=>'Human Resource Consultancy','text'=>'Their HR division sourced 8 qualified candidates within a week. High professionalism throughout.','rating'=>5,'initial'=>'J'],
-        ['name'=>'Priya Sharma','title'=>'Schengen Tourist Visa','service'=>'Travel & Tourism','text'=>'Got my visa approved smoothly. The document checklist and appointment assistance were top-notch.','rating'=>5,'initial'=>'P'],
-      ];
-      foreach ($testimonials as $t): ?>
-      <div class="col-md-4">
-        <div class="testimonial-card animate-on-scroll">
-          <div class="testimonial-quote">"</div>
-          <div class="badge bg-warning text-dark mb-2"><?= $t['service'] ?></div>
-          <p class="testimonial-text"><?= htmlspecialchars($t['text'], ENT_QUOTES, 'UTF-8') ?></p>
-          <div class="testimonial-rating"><?= str_repeat('<i class="fas fa-star"></i>', $t['rating']) ?></div>
-          <div class="testimonial-author">
-            <div class="author-avatar"><?= $t['initial'] ?></div>
-            <div>
-              <div class="author-name"><?= htmlspecialchars($t['name'], ENT_QUOTES, 'UTF-8') ?></div>
-              <div class="author-title"><?= htmlspecialchars($t['title'], ENT_QUOTES, 'UTF-8') ?></div>
-            </div>
+    <div class="process-timeline">
+      <div class="process-step">
+        <div class="process-step-node">01</div>
+        <h4>Select Service</h4>
+        <p>Choose from our Travel, Reservations, HR, Business Setup, or Software divisions.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step-node">02</div>
+        <h4>Consultation & Upload</h4>
+        <p>Discuss requirements with dedicated advisors & submit initial documentation online.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step-node">03</div>
+        <h4>Fast-Track Processing</h4>
+        <p>Our specialists process your visa, ticket, recruitment batch, or custom software development.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step-node">04</div>
+        <h4>Delivery & 24/7 Support</h4>
+        <p>Receive your completed deliverables with continuous key account assistance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ANIMATED METRICS & STATS COUNTER ───────────────────────── -->
+<section class="stats-section" aria-label="Company metrics">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-number" data-counter data-target="1800" data-suffix="+">1,800+</span>
+        <span class="stat-label">Satisfied Clients</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" data-counter data-target="5000" data-suffix="+">5,000+</span>
+        <span class="stat-label">Visas Issued</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" data-counter data-target="400" data-suffix="+">400+</span>
+        <span class="stat-label">Companies Formed</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number" data-counter data-target="120" data-suffix="+">120+</span>
+        <span class="stat-label">Software Delivered</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CLIENT TESTIMONIALS & TRUST ────────────────────────────── -->
+<section class="section" aria-labelledby="testimonials-heading">
+  <div class="container">
+    <div class="section-header animate-on-scroll">
+      <span class="section-eyebrow"><i class="fas fa-star me-1"></i> Client Reviews</span>
+      <h2 class="section-title" id="testimonials-heading">
+        What Our Enterprise <span class="highlight">Clients Say</span>
+      </h2>
+      <p class="section-subtitle">
+        Trusted by businesses, travelers, and executives across Dubai, GCC, and worldwide.
+      </p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-stars">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p class="testimonial-text">
+          "MS Horizon helped us setup our Freezone company in Dubai within 4 days. Their business consultants handled all legal paperwork, bank account opening, and residence visas effortlessly!"
+        </p>
+        <div class="testimonial-user">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop" alt="Client Avatar" class="testimonial-avatar">
+          <div class="testimonial-info">
+            <h5>Sarah Jenkins</h5>
+            <span>CEO, Apex Logistics Dubai</span>
           </div>
         </div>
       </div>
-      <?php endforeach; ?>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p class="testimonial-text">
+          "We engaged MS Horizon's software division to build our custom ERP and mobile app. Outstanding code quality, fast turnarounds, and exceptional post-launch support!"
+        </p>
+        <div class="testimonial-user">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop" alt="Client Avatar" class="testimonial-avatar">
+          <div class="testimonial-info">
+            <h5>Tariq Al-Mansoori</h5>
+            <span>Managing Director, Horizon Tech</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-stars">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        </div>
+        <p class="testimonial-text">
+          "The visa team processed my Schengen visa in record time. Excellent communication via WhatsApp and complete guidance from start to finish. Highly recommended group!"
+        </p>
+        <div class="testimonial-user">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop" alt="Client Avatar" class="testimonial-avatar">
+          <div class="testimonial-info">
+            <h5>Vikram Sharma</h5>
+            <span>Frequent Traveller & Consultant</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FLOATING GLASS CTA ─────────────────────────────────────── -->
+<section class="section section-sm">
+  <div class="container">
+    <div class="glass-cta">
+      <div class="glass-cta-bg"></div>
+      <div class="glass-cta-content">
+        <h2>Ready to Elevate Your Global Business?</h2>
+        <p style="font-size:1.1rem;color:rgba(255,255,255,.8);margin-bottom:2.25rem;">
+          Connect with MS Horizon advisors today for immediate assistance with Travel, HR, Business Setup, or Custom Software.
+        </p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <a href="<?= APP_URL ?>/contact" class="btn btn-primary btn-lg">
+            <i class="fas fa-envelope"></i> Request Consultation
+          </a>
+          <a href="https://wa.me/<?= SITE_WHATSAPP ?>" target="_blank" rel="noopener" class="btn btn-emerald btn-lg">
+            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>

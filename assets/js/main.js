@@ -1,6 +1,6 @@
 /**
  * MS HORIZON GROUP — Main JavaScript Module
- * Sticky navbar, mega menu, dark mode, counters, scroll animations, SweetAlert2 notifications
+ * Sticky navbar, mega menu, dark mode, counters, spotlight effects, micro-interactions, SweetAlert2 notifications
  */
 (function () {
   'use strict';
@@ -14,13 +14,12 @@
   }
 
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(hideLoader, 300);
+    setTimeout(hideLoader, 200);
   } else {
-    window.addEventListener('DOMContentLoaded', () => setTimeout(hideLoader, 300));
-    window.addEventListener('load', () => setTimeout(hideLoader, 300));
+    window.addEventListener('DOMContentLoaded', () => setTimeout(hideLoader, 200));
+    window.addEventListener('load', () => setTimeout(hideLoader, 200));
   }
-  // Ultimate safety fallback
-  setTimeout(hideLoader, 800);
+  setTimeout(hideLoader, 600);
 
   // ─── Theme Toggle (Dark / Light) ──────────────────────────────
   const savedTheme = localStorage.getItem('msh-theme') || 'light';
@@ -42,11 +41,11 @@
   const navbar = document.querySelector('.navbar-msh');
   if (navbar) {
     window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 60);
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
     }, { passive: true });
   }
 
-  // ─── Mobile Hamburger Menu ────────────────────────────────────
+  // ─── Mobile Hamburger Menu & Offcanvas Drawer ─────────────────
   const hamburger = document.querySelector('.nav-hamburger');
   const navLinks = document.querySelector('.nav-links');
   if (hamburger && navLinks) {
@@ -62,7 +61,7 @@
       const link = item.querySelector('.nav-link-btn');
       if (link && item.querySelector('.mega-menu')) {
         link.addEventListener('click', (e) => {
-          if (window.innerWidth <= 768) {
+          if (window.innerWidth <= 991) {
             e.preventDefault();
             item.classList.toggle('open');
           }
@@ -79,11 +78,22 @@
     });
   }
 
+  // ─── Mouse Spotlight / Card Tilt Interactive Magnet ───────────
+  document.querySelectorAll('.spotlight-card, .division-card, .country-card, .offer-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty('--mouse-x', `${x}px`);
+      card.style.setProperty('--mouse-y', `${y}px`);
+    });
+  });
+
   // ─── Back-to-Top Button ───────────────────────────────────────
   const backTop = document.querySelector('.back-to-top');
   if (backTop) {
     window.addEventListener('scroll', () => {
-      backTop.classList.toggle('visible', window.scrollY > 400);
+      backTop.classList.toggle('visible', window.scrollY > 350);
     }, { passive: true });
 
     backTop.addEventListener('click', () => {
@@ -111,7 +121,7 @@
   }
 
   // ─── Intersection Observer (Scroll Reveal + Counters) ─────────
-  const observerOptions = { threshold: 0.15, rootMargin: '0px 0px -60px 0px' };
+  const observerOptions = { threshold: 0.12, rootMargin: '0px 0px -40px 0px' };
 
   const scrollObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -135,10 +145,10 @@
   document.querySelectorAll('[data-counter]').forEach(el => counterObserver.observe(el));
 
   // ─── Staggered Card Animations ────────────────────────────────
-  document.querySelectorAll('.division-grid, .offers-grid, .country-grid, .why-grid, .kpi-grid').forEach(grid => {
+  document.querySelectorAll('.division-grid, .offers-grid, .country-grid, .why-grid, .stats-grid, .process-timeline').forEach(grid => {
     const cards = grid.querySelectorAll(':scope > *');
     cards.forEach((card, i) => {
-      card.style.transitionDelay = `${i * 80}ms`;
+      card.style.transitionDelay = `${i * 70}ms`;
       card.classList.add('animate-on-scroll');
       scrollObserver.observe(card);
     });
@@ -153,7 +163,7 @@
         showConfirmButton: false,
         timer: duration,
         timerProgressBar: true,
-        background: '#0F172A',
+        background: '#040914',
         color: '#FFFFFF',
         customClass: { popup: 'animated fadeInDown' },
         didOpen: (toast) => {
